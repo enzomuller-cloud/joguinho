@@ -3,108 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>🏁 Corrida de Emoticons | Emoji Racers</title>
+    <title>🏁 EMOJI RACER | Hitbox Corrigida 🚗💨</title>
     <style>
         * {
             user-select: none;
             -webkit-tap-highlight-color: transparent;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            background: linear-gradient(145deg, #1a472a 0%, #0e2a1a 100%);
+            background: linear-gradient(135deg, #0a0a1a 0%, #050510 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Segoe UI', 'Courier New', monospace, 'Apple Color Emoji', 'Segoe UI Emoji';
-            margin: 0;
+            font-family: 'Segoe UI', 'Poppins', monospace;
             padding: 20px;
+            overflow-x: hidden;
         }
 
-        /* Container principal do jogo */
         .game-container {
-            background: #2b2b2b;
-            border-radius: 64px;
-            padding: 24px 20px 20px 20px;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.5), inset 0 1px 4px rgba(255,255,255,0.2);
-            border-bottom: 6px solid #f5c542;
+            background: linear-gradient(145deg, #1a1a2e 0%, #0f0f1a 100%);
+            border-radius: 48px;
+            padding: 20px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.6), inset 0 1px 2px rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
         }
 
-        /* Painel do jogo */
         .game-panel {
-            background: #0f0f1c;
+            background: linear-gradient(135deg, #14142a 0%, #0a0a18 100%);
             border-radius: 32px;
-            padding: 16px 24px;
-            box-shadow: inset 0 0 12px #00000055, 0 6px 0 #3a2a1a;
+            padding: 20px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 5px 0 #2a1f0e;
         }
 
-        /* Header com pontuação e recorde */
         .stats {
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
-            background: #010101aa;
-            background: #1e1a2f;
-            padding: 12px 24px;
+            align-items: center;
+            background: linear-gradient(135deg, #1a1a35 0%, #101020 100%);
+            padding: 12px 28px;
             border-radius: 60px;
             margin-bottom: 20px;
-            color: #ffeaac;
-            text-shadow: 0 2px 2px black;
-            font-weight: bold;
-            font-size: 1.4rem;
-            backdrop-filter: blur(4px);
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
-            justify-content: center;
+            border: 1px solid rgba(255,215,0,0.3);
         }
 
-        .score-box, .best-box {
-            background: #00000077;
-            padding: 6px 18px;
-            border-radius: 3rem;
+        .card {
+            background: linear-gradient(145deg, #000000aa, #0a0a1aaa);
+            backdrop-filter: blur(8px);
+            padding: 6px 20px;
+            border-radius: 40px;
             display: flex;
-            gap: 12px;
-            letter-spacing: 1px;
+            align-items: baseline;
+            gap: 10px;
+            font-weight: bold;
+            color: #ffe6aa;
+            font-size: 1.1rem;
+            border: 1px solid rgba(255,200,100,0.3);
         }
 
-        .score-box span:first-child, .best-box span:first-child {
+        .card span:first-child {
             font-size: 1.2rem;
-            opacity: 0.8;
+            text-shadow: 0 0 5px rgba(255,200,0,0.5);
         }
 
-        .score-value, .best-value {
-            font-size: 2rem;
+        .value {
+            font-size: 1.8rem;
             font-weight: 800;
-            font-family: monospace;
-            color: #ffd966;
+            font-family: 'Courier New', monospace;
+            color: #ffdf7e;
             line-height: 1;
+            text-shadow: 0 0 10px #ffaa33;
         }
 
-        /* Área da pista */
-        .track {
-            background-color: #2e241f;
-            background-image: repeating-linear-gradient(90deg, 
-                rgba(255,215,130,0.3) 0px, 
-                rgba(255,215,130,0.3) 4px,
-                transparent 4px,
-                transparent 20px);
+        .danger-value {
+            color: #ff6666;
+            text-shadow: 0 0 10px #ff0000;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .track-container {
+            background: linear-gradient(145deg, #1a1510 0%, #0d0a07 100%);
             border-radius: 28px;
-            padding: 20px 16px;
-            border: 3px solid #ab8e5c;
-            box-shadow: inset 0 0 0 3px #5c3e1a, 0 10px 20px rgba(0,0,0,0.3);
+            padding: 12px;
+            border: 2px solid #b87c3a;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 10px 25px black;
         }
 
         canvas {
             display: block;
             margin: 0 auto;
-            background: #3a2a22;
+            background: #1a1a1a;
             border-radius: 24px;
             cursor: pointer;
-            box-shadow: 0 0 0 4px #f3bc5c, 0 8px 16px black;
+            box-shadow: 0 0 0 3px rgba(245,188,110,0.5), 0 8px 30px rgba(0,0,0,0.5);
         }
 
-        /* Controles abaixo da pista */
-        .controls {
+        .control-bar {
             margin-top: 24px;
             display: flex;
             justify-content: center;
@@ -113,59 +117,76 @@
         }
 
         button {
-            background: #ffeecc;
+            background: linear-gradient(145deg, #ffdd88, #ffaa33);
             border: none;
-            font-size: 2rem;
+            font-size: 1.4rem;
             padding: 10px 28px;
             border-radius: 60px;
             font-weight: bold;
-            font-family: monospace, 'Segoe UI Emoji';
             cursor: pointer;
-            box-shadow: 0 5px 0 #aa8c54;
+            box-shadow: 0 5px 0 #aa6a1a;
             transition: 0.07s linear;
-            color: #2c1a0c;
+            color: #2d1b08;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         button:active {
             transform: translateY(3px);
-            box-shadow: 0 2px 0 #aa8c54;
+            box-shadow: 0 2px 0 #aa6a1a;
         }
 
         .restart-btn {
-            background: #ffb347;
-            color: #2a2000;
-            font-size: 1.5rem;
+            background: linear-gradient(145deg, #ff6644, #cc3322);
+            color: white;
+            text-shadow: 0 1px 2px black;
         }
 
-        .instruction {
-            background: #00000088;
-            border-radius: 48px;
-            padding: 8px 16px;
-            text-align: center;
-            color: #f9e2a1;
-            font-weight: bold;
-            font-size: 0.9rem;
-            backdrop-filter: blur(4px);
+        .legend {
+            background: linear-gradient(135deg, #00000099, #00000077);
+            backdrop-filter: blur(8px);
             margin-top: 16px;
+            border-radius: 48px;
+            padding: 8px 20px;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #ffe1a0;
+            border: 1px solid rgba(255,200,100,0.3);
+            flex-wrap: wrap;
         }
 
-        .instruction span {
-            background: #1f1a2e;
-            padding: 4px 12px;
-            border-radius: 40px;
+        .legend span {
+            background: #1f1b2eaa;
+            padding: 4px 14px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        @media (max-width: 550px) {
-            .stats { font-size: 1rem; }
-            .score-value, .best-value { font-size: 1.5rem; }
-            button { font-size: 1.3rem; padding: 6px 20px; }
-            .instruction { font-size: 0.7rem; }
+        /* Modo debug - aperte D para mostrar hitboxes */
+        .debug-note {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.5);
+            color: #888;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        @media (max-width: 650px) {
+            .card { padding: 3px 12px; font-size: 0.9rem; }
+            .value { font-size: 1.3rem; }
+            button { font-size: 1.1rem; padding: 6px 18px; }
+            .legend { font-size: 0.65rem; gap: 8px; }
+            .legend span { padding: 3px 10px; }
         }
     </style>
 </head>
@@ -174,404 +195,647 @@
     <div class="game-container">
         <div class="game-panel">
             <div class="stats">
-                <div class="score-box">
-                    <span>🏆 SCORE</span>
-                    <span class="score-value" id="scoreDisplay">0</span>
+                <div class="card">
+                    <span>🏆 PONTOS</span>
+                    <span class="value" id="scoreDisplay">0</span>
                 </div>
-                <div class="best-box">
+                <div class="card">
                     <span>⭐ RECORDE</span>
-                    <span class="best-value" id="bestDisplay">0</span>
+                    <span class="value" id="bestDisplay">0</span>
+                </div>
+                <div class="card">
+                    <span>⚡ VELOCIDADE</span>
+                    <span class="value danger-value" id="speedDisplay">0</span>
+                </div>
+                <div class="card">
+                    <span>📈 MULTIPLICADOR</span>
+                    <span class="value" id="multiplierDisplay">1.0</span>
                 </div>
             </div>
-            <div class="track">
-                <canvas id="gameCanvas" width="700" height="400"></canvas>
+            <div class="track-container">
+                <canvas id="gameCanvas" width="850" height="520"></canvas>
             </div>
-            <div class="controls">
-                <button id="leftBtn">◀  ESQUERDA</button>
-                <button id="rightBtn">DIREITA  ▶</button>
+            <div class="control-bar">
+                <button id="upBtn">⬆️ SUBIR</button>
+                <button id="downBtn">⬇️ DESCER</button>
                 <button id="restartBtn" class="restart-btn">🔄 REINICIAR</button>
             </div>
-            <div class="instruction">
-                <span>🎮 SETAS ◀ ▶</span>
-                <span>🚗 🏁 DESVIAR DOS 🚧</span>
-                <span>💥 ⚡ SE BATER, GAME OVER</span>
+            <div class="legend">
+                <span>🚗 SEU CARRO ➡️</span>
+                <span>🚕 🚙 🚓 INIMIGOS ←</span>
+                <span>💥 COLISÃO = GAME OVER</span>
+                <span>✨ HITBOX CORRIGIDA</span>
             </div>
         </div>
     </div>
 </div>
+<div class="debug-note">🔧 Hitbox ajustada | Aperte D para debug</div>
 
 <script>
     (function(){
-        // ---------- CONFIGURAÇÕES EMOCIONANTES ----------
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         
-        // Dimensões da pista (faixas horizontais)
+        // ========== EMOJIS DE CARROS ==========
+        const PLAYER_EMOJI = "🚗";
+        const ENEMY_EMOJIS = ["🚕", "🚙", "🚓", "🚑", "🚒", "🚐", "🛻", "🏎️", "🚘", "🚖"];
+        
+        // CONFIGURAÇÕES
         const LANE_COUNT = 5;
-        const LANE_HEIGHT = canvas.height / LANE_COUNT; // 400/5 = 80px
-        // O carro fica fixo na penúltima faixa (posição Y da base) - escolhemos a faixa 3 de 0 a 4 (index 3)
-        const PLAYER_LANE_INDEX = 3;   // linha de baixo (quarta faixa) -> emocionante e visível
-        const PLAYER_Y = PLAYER_LANE_INDEX * LANE_HEIGHT + (LANE_HEIGHT/2);
+        const LANE_HEIGHT = canvas.height / LANE_COUNT;
         
-        // Dados do jogador
-        let playerLane = 2;      // lane index 0-4, começa no meio (lane 2)
+        let playerLane = 2;
+        const PLAYER_X = 110;
+        
+        // TAMANHO REAL DOS CARROS (hitbox precisa)
+        const CAR_WIDTH = 48;
+        const CAR_HEIGHT = 48;
+        
+        // Posição central do player para hitbox
+        const getPlayerRect = () => ({
+            x: PLAYER_X - CAR_WIDTH/2 + 8,
+            y: playerLane * LANE_HEIGHT + (LANE_HEIGHT/2) - CAR_HEIGHT/2,
+            w: CAR_WIDTH - 8,
+            h: CAR_HEIGHT - 6
+        });
+        
+        // Posição central dos obstáculos para hitbox
+        const getObstacleRect = (obs) => ({
+            x: obs.x + 8,
+            y: obs.lane * LANE_HEIGHT + (LANE_HEIGHT/2) - CAR_HEIGHT/2,
+            w: CAR_WIDTH - 12,
+            h: CAR_HEIGHT - 8
+        });
+        
+        // Modo debug (mostrar hitboxes)
+        let debugMode = false;
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'd' || e.key === 'D') {
+                debugMode = !debugMode;
+            }
+        });
+        
         let score = 0;
-        let bestScore = localStorage.getItem('emojiRaceBest') ? parseInt(localStorage.getItem('emojiRaceBest')) : 0;
+        let bestScore = localStorage.getItem('emojiCarRaceFixed') ? parseInt(localStorage.getItem('emojiCarRaceFixed')) : 0;
         let gameActive = true;
-        let frameRequest;
         
-        // Lista de obstáculos (inimigos) que descem / ou melhor: aparecem no topo e descem em direção ao jogador
-        // Cada obstáculo: { x (lane index 0-4), y (posição vertical em pixels, de 0 até canvas.height), emoji }
         let obstacles = [];
-        
-        // Controle de spawn
         let frameCounter = 0;
-        let spawnGap = 45;       // frames entre geração (quanto menor, mais difícil)
-        let baseSpeed = 2.2;     // velocidade de descida (pixels por frame)
+        let baseSpawnGap = 42;
+        let baseSpeed = 2.2;
         
-        // Ajuste dinâmico de dificuldade
-        let difficultyRamp = 1;
+        // Efeitos visuais
+        let particles = [];
+        let screenShake = 0;
+        let speedLines = [];
+        let nitroEffect = 0;
+        let trailEffect = [];
+        let floatingTexts = [];
+        let lastBonus = 0;
         
-        // Emoticons divertidos!
-        const PLAYER_EMOJI = "🏎️";      // carro esporte
-        const OBSTACLE_EMOJIS = ["🚧", "🪨", "🌵", "🧱", "⛔", "🚓", "💣", "🛑"];
-        
-        // Atualiza display do score
         const scoreSpan = document.getElementById('scoreDisplay');
         const bestSpan = document.getElementById('bestDisplay');
+        const speedSpan = document.getElementById('speedDisplay');
+        const multiplierSpan = document.getElementById('multiplierDisplay');
         bestSpan.innerText = bestScore;
         
-        function updateUI() {
-            scoreSpan.innerText = score;
-            if(score > bestScore) {
-                bestScore = score;
-                bestSpan.innerText = bestScore;
-                localStorage.setItem('emojiRaceBest', bestScore);
+        function getCurrentSpeed() {
+            let speedBonus = Math.floor(score / 150) * 0.4;
+            let speed = baseSpeed + speedBonus;
+            speed = Math.min(speed, 9.0);
+            return speed;
+        }
+        
+        function updateMultiplier() {
+            let speed = getCurrentSpeed();
+            let mult = parseFloat((speed / baseSpeed).toFixed(1));
+            multiplierSpan.innerText = mult;
+            if(mult >= 2.5) {
+                multiplierSpan.style.color = "#ff4444";
+                multiplierSpan.style.textShadow = "0 0 15px #ff0000";
+            } else if(mult >= 1.8) {
+                multiplierSpan.style.color = "#ff8844";
+                multiplierSpan.style.textShadow = "0 0 10px #ff6600";
+            } else {
+                multiplierSpan.style.color = "#ffdf7e";
+                multiplierSpan.style.textShadow = "0 0 10px #ffaa33";
             }
         }
         
-        // Inicializar ou resetar jogo
+        function getCurrentSpawnGap() {
+            return Math.max(16, baseSpawnGap - Math.floor(score / 180));
+        }
+        
+        function updateUI() {
+            scoreSpan.innerText = Math.floor(score);
+            let currentSpeed = getCurrentSpeed();
+            speedSpan.innerText = currentSpeed.toFixed(1);
+            
+            if(currentSpeed >= 6.0) {
+                speedSpan.classList.add('danger-value');
+            } else {
+                speedSpan.classList.remove('danger-value');
+            }
+            
+            if(score > bestScore) {
+                bestScore = Math.floor(score);
+                bestSpan.innerText = bestScore;
+                localStorage.setItem('emojiCarRaceFixed', bestScore);
+            }
+            updateMultiplier();
+        }
+        
         function resetGame() {
             gameActive = true;
             score = 0;
             playerLane = 2;
             obstacles = [];
+            particles = [];
+            speedLines = [];
+            trailEffect = [];
+            floatingTexts = [];
             frameCounter = 0;
             baseSpeed = 2.2;
-            difficultyRamp = 1;
+            lastBonus = 0;
+            screenShake = 0;
+            nitroEffect = 0;
             updateUI();
         }
         
-        // Game Over
         function endGame() {
             if(!gameActive) return;
             gameActive = false;
-            updateUI(); // mantém score final
+            screenShake = 25;
+            for(let i = 0; i < 70; i++) {
+                particles.push({
+                    x: PLAYER_X,
+                    y: playerLane * LANE_HEIGHT + (LANE_HEIGHT/2),
+                    vx: (Math.random() - 0.5) * 16,
+                    vy: (Math.random() - 0.5) * 16,
+                    life: 50,
+                    size: Math.random() * 6 + 2,
+                    color: `hsl(${Math.random() * 60 + 20}, 100%, 55%)`
+                });
+            }
+            updateUI();
         }
         
-        // Gerar novo obstáculo na pista superior (y = 0 até um pouco acima)
         function spawnObstacle() {
             if(!gameActive) return;
-            // lane aleatória entre 0 e LANE_COUNT-1
             const lane = Math.floor(Math.random() * LANE_COUNT);
-            // Evitar spawn excessivamente na mesma linha do jogador quando já existem muitos? Não precisa, desafio justo.
-            const randomEmoji = OBSTACLE_EMOJIS[Math.floor(Math.random() * OBSTACLE_EMOJIS.length)];
+            const randomEmoji = ENEMY_EMOJIS[Math.floor(Math.random() * ENEMY_EMOJIS.length)];
             obstacles.push({
                 lane: lane,
-                y: -20,   // começa fora do topo (suave)
+                x: canvas.width + 60,
                 emoji: randomEmoji,
-                width: 34,   // para colisão (aproximado)
-                height: 34
+                counted: false,
+                colided: false
             });
         }
         
-        // Movimentação do player (esquerda/direita)
-        function movePlayer(delta) {
+        function movePlayer(deltaY) {
             if(!gameActive) return;
-            let newLane = playerLane + delta;
+            let newLane = playerLane + deltaY;
             if(newLane >= 0 && newLane < LANE_COUNT) {
                 playerLane = newLane;
+                for(let i = 0; i < 12; i++) {
+                    particles.push({
+                        x: PLAYER_X - 20,
+                        y: playerLane * LANE_HEIGHT + (LANE_HEIGHT/2),
+                        vx: (Math.random() - 0.5) * 5 - 3,
+                        vy: (Math.random() - 0.5) * 4,
+                        life: 20,
+                        size: Math.random() * 4 + 1,
+                        color: `hsl(45, 100%, 55%)`
+                    });
+                }
             }
         }
         
-        // Atualizar lógica (posição obstáculos, colisões, score)
+        function showFloatingText(text, lane, xPos) {
+            floatingTexts.push({
+                text: text,
+                x: xPos !== undefined ? xPos : PLAYER_X,
+                y: lane * LANE_HEIGHT + LANE_HEIGHT/2,
+                life: 50
+            });
+        }
+        
         function updateGame() {
             if(!gameActive) return;
             
-            // 1. Dificuldade progressiva: conforme score aumenta, aumenta velocidade e menor spawnGap
-            let currentSpeed = baseSpeed + Math.floor(score / 350) * 0.5;
-            currentSpeed = Math.min(currentSpeed, 5.8); // velocidade máxima
-            let currentSpawnGap = Math.max(22, spawnGap - Math.floor(score / 280));
+            let currentSpeed = getCurrentSpeed();
+            let currentSpawnGap = getCurrentSpawnGap();
             
-            // 2. Mover obstáculos para baixo
-            for(let i=0; i<obstacles.length; i++) {
-                obstacles[i].y += currentSpeed;
+            // Mover obstáculos
+            for(let i = 0; i < obstacles.length; i++) {
+                obstacles[i].x -= currentSpeed;
             }
             
-            // 3. Filtrar obstáculos que saíram da tela (y > canvas.height) e também adicionar pontos por ultrapassar segurança?
-            // Regra: passageiro seguro: quando o obstáculo ultrapassa a linha do jogador sem colidir, dá pontos? Vamos adotar:
-            // Se um obstáculo ultrapassar o Y do jogador (PLAYER_Y + margem) e ainda não foi contabilizado, marca como "passou" e soma pontos.
-            // Muitos jogos recompensam evitar obstáculos, assim fica divertido.
-            // Para isso, cada obstáculo terá flag 'counted'
-            for(let i=0; i<obstacles.length; i++) {
-                if(!obstacles[i].counted && obstacles[i].y + 20 > PLAYER_Y) {
-                    // Obstáculo cruzou a altura do jogador sem colidir? só marcar se ainda não colidiu, mas a colisão é prioridade.
-                    // Marcar como contado apenas se não houver colisão nesse momento. Mas vamos usar a lógica de colisão separadamente.
-                    // Para evitar double, a flag será ativada só depois de passar com segurança.
-                    // Porém a colisão acontece se o obstáculo estiver na mesma faixa e recobrir a área do player.
-                    // Se não colidiu, ao ultrapassar +20 pixels abaixo do player, então somamos ponto.
-                    if(obstacles[i].y > PLAYER_Y + 15 && !obstacles[i].safeAwarded) {
-                        obstacles[i].safeAwarded = true;
-                        score += 10;
+            // Pontuação
+            for(let i = 0; i < obstacles.length; i++) {
+                const obs = obstacles[i];
+                if(!obs.counted && obs.x + CAR_WIDTH/2 < PLAYER_X - CAR_WIDTH/4) {
+                    if(gameActive && !obs.colided) {
+                        obs.counted = true;
+                        let pointsGain = 10;
+                        score += pointsGain;
                         updateUI();
+                        showFloatingText(`+${pointsGain}`, obs.lane, obs.x);
+                        
+                        for(let p = 0; p < 12; p++) {
+                            particles.push({
+                                x: obs.x + 35,
+                                y: obs.lane * LANE_HEIGHT + LANE_HEIGHT/2,
+                                vx: (Math.random() - 0.5) * 6,
+                                vy: (Math.random() - 0.5) * 6 - 3,
+                                life: 25,
+                                size: Math.random() * 4 + 1,
+                                color: `hsl(${Math.random() * 60 + 40}, 100%, 60%)`
+                            });
+                        }
                     }
                 }
             }
             
-            // 4. Colisão (precisa verificar com hitbox)
-            const playerHitRadius = 24;    // tamanho aproximado do emoticon
-            const playerCenterX = (playerLane * LANE_HEIGHT) + (LANE_HEIGHT/2);
-            const playerCenterY = PLAYER_Y;
+            // COLISÃO - Hitbox precisa baseada no tamanho real dos carros
+            const playerRect = getPlayerRect();
             
-            for(let i=0; i<obstacles.length; i++) {
+            for(let i = 0; i < obstacles.length; i++) {
                 const obs = obstacles[i];
-                const obsCenterX = (obs.lane * LANE_HEIGHT) + (LANE_HEIGHT/2);
-                const obsCenterY = obs.y + 18; // centro aproximado
-                const dx = playerCenterX - obsCenterX;
-                const dy = playerCenterY - obsCenterY;
-                const distance = Math.sqrt(dx*dx + dy*dy);
-                if(distance < 32) { // colidiu!
+                const obsRect = getObstacleRect(obs);
+                
+                // Detecção de colisão com hitbox retangular precisa
+                if(playerRect.x < obsRect.x + obsRect.w &&
+                   playerRect.x + playerRect.w > obsRect.x &&
+                   playerRect.y < obsRect.y + obsRect.h &&
+                   playerRect.y + playerRect.h > obsRect.y) {
+                    obs.colided = true;
                     endGame();
-                    break; // para de checar porque o jogo acabou
+                    break;
                 }
             }
             
-            // Se o jogo acabou após colisão, não spawna novos obstáculos e não avança mais lógica
             if(!gameActive) return;
             
-            // 5. Remover obstáculos que saíram totalmente da tela (y > canvas.height + 40)
-            obstacles = obstacles.filter(obs => obs.y < canvas.height + 50);
+            // Remover obstáculos
+            obstacles = obstacles.filter(obs => obs.x > -100);
             
-            // 6. Spawn de novos obstáculos (controle de frames)
+            // Spawn
             frameCounter++;
-            let dynamicSpawnDelay = Math.max(22, currentSpawnGap);
-            if(frameCounter >= dynamicSpawnDelay) {
+            if(frameCounter >= currentSpawnGap) {
                 frameCounter = 0;
                 spawnObstacle();
-                // Pequena chance dupla em altas pontuações = emoção!
-                if(score > 800 && Math.random() < 0.25) {
+                if(currentSpeed > 5.8 && Math.random() < 0.3) {
                     spawnObstacle();
                 }
             }
             
-            // Bônus extra de dificuldade: adiciona mais velocidade para scores altos
+            // Bônus
+            if(score > 0 && Math.floor(score) % 100 === 0 && score !== 0 && lastBonus !== Math.floor(score)) {
+                lastBonus = Math.floor(score);
+                let bonusAmount = Math.floor(25 + currentSpeed * 2);
+                showFloatingText(`🏆 +${bonusAmount}`, playerLane, PLAYER_X);
+                score += bonusAmount;
+                updateUI();
+                nitroEffect = 25;
+                
+                for(let i = 0; i < 35; i++) {
+                    particles.push({
+                        x: PLAYER_X,
+                        y: playerLane * LANE_HEIGHT + (LANE_HEIGHT/2),
+                        vx: (Math.random() - 0.5) * 8,
+                        vy: (Math.random() - 0.5) * 8 - 4,
+                        life: 35,
+                        size: Math.random() * 5 + 1,
+                        color: `hsl(${Math.random() * 60 + 30}, 100%, 55%)`
+                    });
+                }
+            }
+            
+            // Efeitos
+            if(currentSpeed > 3.5) {
+                if(Math.random() < 0.4) {
+                    speedLines.push({
+                        x: Math.random() * canvas.width,
+                        y: 0,
+                        width: Math.random() * 5 + 2,
+                        height: Math.random() * 100 + 40,
+                        speed: currentSpeed * 2.8,
+                        alpha: Math.random() * 0.5 + 0.2
+                    });
+                }
+                
+                if(Math.random() < 0.35) {
+                    trailEffect.push({
+                        x: PLAYER_X - 15,
+                        y: playerLane * LANE_HEIGHT + (LANE_HEIGHT/2),
+                        life: 18,
+                        size: Math.random() * 8 + 4
+                    });
+                }
+            }
+            
+            // Atualizações
+            for(let i = 0; i < speedLines.length; i++) {
+                speedLines[i].y += speedLines[i].speed;
+                if(speedLines[i].y > canvas.height) {
+                    speedLines.splice(i,1);
+                    i--;
+                }
+            }
+            
+            for(let i = 0; i < trailEffect.length; i++) {
+                trailEffect[i].life--;
+                if(trailEffect[i].life <= 0) {
+                    trailEffect.splice(i,1);
+                    i--;
+                }
+            }
+            
+            if(nitroEffect > 0) nitroEffect--;
+            if(screenShake > 0) screenShake--;
         }
         
-        // ---------- DESENHO DO JOGO (Tudo com emoticons e estilo vibrante) ----------
+        // DESENHO
         function drawTrack() {
-            // Desenhar faixas e asfalto
-            for(let i=0; i<LANE_COUNT; i++) {
+            const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            grad.addColorStop(0, '#1e1810');
+            grad.addColorStop(1, '#0f0b07');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            for(let i = 0; i < LANE_COUNT; i++) {
                 let y = i * LANE_HEIGHT;
-                let isEven = i % 2 === 0;
-                ctx.fillStyle = isEven ? '#3e2c24' : '#4f382a';
+                let gradLane = ctx.createLinearGradient(0, y, canvas.width, y);
+                gradLane.addColorStop(0, i % 2 === 0 ? '#3a2a1c' : '#4a3824');
+                gradLane.addColorStop(1, i % 2 === 0 ? '#251e12' : '#352818');
+                ctx.fillStyle = gradLane;
                 ctx.fillRect(0, y, canvas.width, LANE_HEIGHT);
-                // Linhas divisórias tracejadas (estilo pista)
+                
                 ctx.beginPath();
-                ctx.strokeStyle = '#efcd91';
+                ctx.strokeStyle = i === playerLane ? '#ffaa44' : '#c4a060';
                 ctx.lineWidth = 2.5;
-                ctx.setLineDash([12, 20]);
+                ctx.setLineDash([15, 25]);
                 ctx.moveTo(0, y);
                 ctx.lineTo(canvas.width, y);
                 ctx.stroke();
-                // colocar uns detalhes de grama lateral
-                ctx.fillStyle = '#8bb56a';
-                ctx.fillRect(0, y+LANE_HEIGHT-6, 12, 6);
-                ctx.fillRect(canvas.width-12, y+LANE_HEIGHT-6, 12, 6);
+                
+                ctx.fillStyle = '#6a9a4a';
+                ctx.fillRect(0, y+LANE_HEIGHT-4, canvas.width, 3);
             }
             ctx.setLineDash([]);
-            // linha de chegada? não, linha do player (efeito visual)
-            ctx.beginPath();
-            ctx.strokeStyle = '#ffcf40';
-            ctx.lineWidth = 3;
-            ctx.setLineDash([10, 15]);
-            ctx.moveTo(0, PLAYER_Y+12);
-            ctx.lineTo(canvas.width, PLAYER_Y+12);
-            ctx.stroke();
-            ctx.setLineDash([]);
             
-            // Faixa de "sombra" do player
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = '#ffaa44';
+            ctx.beginPath();
+            ctx.strokeStyle = '#ffcc55';
+            ctx.lineWidth = 3;
+            ctx.moveTo(PLAYER_X + 35, 0);
+            ctx.lineTo(PLAYER_X + 35, canvas.height);
+            ctx.stroke();
             ctx.shadowBlur = 0;
+            
+            ctx.font = "bold 13px monospace";
+            ctx.fillStyle = "#ffaa66aa";
+            ctx.fillText("🟢 ZONA SEGURA", PLAYER_X - 80, 30);
+            ctx.fillStyle = "#ff6644aa";
+            ctx.fillText("⚠️ PERIGO ⚠️", canvas.width - 130, 30);
         }
         
         function drawObstacles() {
-            for(let obs of obstacles) {
-                const laneX = obs.lane * LANE_HEIGHT;
-                const centerX = laneX + LANE_HEIGHT/2;
-                const yPos = obs.y;
-                // desenha um círculo decorativo tipo "perigo"
-                ctx.font = `${LANE_HEIGHT-12}px "Segoe UI Emoji", "Apple Color Emoji", monospace`;
+            for(let i = 0; i < obstacles.length; i++) {
+                const obs = obstacles[i];
+                const centerY = obs.lane * LANE_HEIGHT + (LANE_HEIGHT/2);
+                const xPos = obs.x;
+                
+                ctx.save();
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = "rgba(0,0,0,0.7)";
+                ctx.font = `46px "Segoe UI Emoji", "Apple Color Emoji", monospace`;
                 ctx.textAlign = "center";
                 ctx.textBaseline = "middle";
-                ctx.shadowBlur = 6;
-                ctx.shadowColor = "black";
-                ctx.fillStyle = "#111";
-                ctx.fillText(obs.emoji, centerX+1, yPos+22);
-                ctx.fillStyle = "#fff9e0";
-                ctx.fillText(obs.emoji, centerX, yPos+21);
-                ctx.fillStyle = "#ffffff";
-                ctx.fillText(obs.emoji, centerX-1, yPos+20);
-                // efeito brilho
-                ctx.fillStyle = "#ffdd99";
-                ctx.fillText(obs.emoji, centerX, yPos+20);
+                
+                ctx.fillStyle = "#000000aa";
+                ctx.fillText(obs.emoji, xPos + 2, centerY + 2);
+                ctx.fillStyle = "#ffffffdd";
+                ctx.fillText(obs.emoji, xPos - 1, centerY - 1);
+                ctx.fillStyle = "#ffcc88";
+                ctx.fillText(obs.emoji, xPos, centerY);
+                
+                // Hitbox debug
+                if(debugMode) {
+                    const rect = getObstacleRect(obs);
+                    ctx.strokeStyle = "#00ff00";
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(rect.x, rect.y, rect.w, rect.h);
+                }
+                
+                ctx.restore();
             }
         }
         
-        function drawPlayer() {
-            const laneX = playerLane * LANE_HEIGHT;
-            const centerX = laneX + LANE_HEIGHT/2;
-            const playerY = PLAYER_Y;
-            ctx.font = `${LANE_HEIGHT-8}px "Segoe UI Emoji", "Apple Color Emoji", monospace`;
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            // glow e efeito turbo
-            ctx.shadowBlur = 14;
-            ctx.shadowColor = "#ffaa33";
-            for(let i=0;i<3;i++) {
-                ctx.fillStyle = `rgba(255, 200, 50, ${0.3-i*0.1})`;
-                ctx.fillText(PLAYER_EMOJI, centerX + (i-1)*2, playerY + (i-1)*1.5);
-            }
-            ctx.fillStyle = "#ffd966";
-            ctx.fillText(PLAYER_EMOJI, centerX, playerY);
-            ctx.fillStyle = "white";
-            ctx.fillText(PLAYER_EMOJI, centerX-1, playerY-1);
-            ctx.fillStyle = "#FFB347";
-            ctx.fillText(PLAYER_EMOJI, centerX+1, playerY+1);
-            ctx.fillStyle = "#F7D44A";
-            ctx.fillText(PLAYER_EMOJI, centerX, playerY);
-            
-            // efeito de esteira
-            ctx.font = "18px monospace";
-            ctx.fillStyle = "#ffcf88";
-            ctx.shadowBlur = 4;
-            ctx.fillText("⚡", centerX-28, playerY+8);
-            ctx.fillText("💨", centerX+24, playerY+5);
-        }
-        
-        function drawGameStatus() {
-            if(!gameActive) {
-                ctx.font = `bold 38px "Segoe UI", "Courier New", monospace`;
-                ctx.shadowBlur = 0;
-                ctx.fillStyle = "#ff3a2f";
-                ctx.shadowColor = "black";
-                ctx.fillText("💥 GAME OVER 💥", canvas.width/2, canvas.height/3);
-                ctx.font = `bold 22px monospace`;
-                ctx.fillStyle = "#ffd966";
-                ctx.fillText("Clique em REINICIAR ➕", canvas.width/2, canvas.height/2 + 30);
-                // emoticon triste
-                ctx.font = `48px "Segoe UI Emoji"`;
-                ctx.fillStyle = "#ffffff";
-                ctx.fillText("😭", canvas.width/2+80, canvas.height/2);
-                ctx.fillText("💀", canvas.width/2-90, canvas.height/2);
-            }
-            
-            // Mostrar dificuldade com emojis
-            ctx.font = `bold 18px monospace`;
-            ctx.fillStyle = "#fdebb3";
-            ctx.shadowBlur = 2;
-            ctx.fillText(`🏁 VELOCIDADE: ${(baseSpeed + Math.floor(score/350)*0.5).toFixed(1)}`, canvas.width-150, 35);
-            ctx.fillText(`🚀 SCORE: ${score}`, 20, 40);
-        }
-        
-        function drawBackgroundDetails() {
-            // pequenas estrelas ou poeira na pista
-            ctx.fillStyle = "#ddbb77";
-            for(let i=0;i<6;i++) {
-                let x = (Date.now() * 0.003 + i * 200) % canvas.width;
+        function drawTrail() {
+            for(let i = 0; i < trailEffect.length; i++) {
+                const t = trailEffect[i];
+                ctx.fillStyle = `rgba(255, 100, 50, ${t.life/18 * 0.5})`;
                 ctx.beginPath();
-                ctx.arc(x, canvas.height-15, 3,0,Math.PI*2);
+                ctx.ellipse(t.x, t.y, t.size, t.size * 0.6, 0, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
         
+        function drawPlayer() {
+            const playerX = PLAYER_X + (screenShake > 0 ? (Math.random() - 0.5) * 4 : 0);
+            const playerY = playerLane * LANE_HEIGHT + (LANE_HEIGHT/2);
+            
+            ctx.save();
+            ctx.shadowBlur = 18;
+            ctx.shadowColor = "#ffaa33";
+            
+            if(nitroEffect > 0) {
+                ctx.shadowBlur = 35;
+                ctx.shadowColor = "#ff4400";
+                for(let i = 0; i < 6; i++) {
+                    ctx.fillStyle = `rgba(255, 80, 0, ${0.5 - i*0.08})`;
+                    ctx.fillText("🔥", playerX - 45 + i*10, playerY + 5);
+                }
+            }
+            
+            ctx.font = `52px "Segoe UI Emoji", "Apple Color Emoji", monospace`;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            
+            ctx.fillStyle = "#000000aa";
+            ctx.fillText(PLAYER_EMOJI, playerX + 2, playerY + 2);
+            ctx.fillStyle = "#ffdd88";
+            ctx.fillText(PLAYER_EMOJI, playerX, playerY);
+            ctx.fillStyle = "#ffffff";
+            ctx.fillText(PLAYER_EMOJI, playerX - 1, playerY - 1);
+            ctx.fillStyle = "#ffaa44";
+            ctx.fillText(PLAYER_EMOJI, playerX + 1, playerY + 1);
+            
+            ctx.fillStyle = "#ffff88dd";
+            ctx.font = "22px monospace";
+            ctx.fillText("➡️", playerX + 28, playerY);
+            
+            // Hitbox debug do player
+            if(debugMode) {
+                const rect = getPlayerRect();
+                ctx.strokeStyle = "#ff0000";
+                ctx.lineWidth = 2;
+                ctx.strokeRect(rect.x, rect.y, rect.w, rect.h);
+                ctx.fillStyle = "#ff000088";
+                ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
+            }
+            
+            ctx.restore();
+        }
+        
+        function drawSpeedLines() {
+            for(let i = 0; i < speedLines.length; i++) {
+                const line = speedLines[i];
+                ctx.fillStyle = `rgba(255, 220, 100, ${line.alpha})`;
+                ctx.fillRect(line.x, line.y, line.width, line.height);
+            }
+        }
+        
+        function drawParticles() {
+            for(let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                ctx.fillStyle = p.color;
+                ctx.shadowBlur = 5;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life--;
+                if(p.life <= 0) {
+                    particles.splice(i,1);
+                    i--;
+                }
+            }
+            ctx.shadowBlur = 0;
+        }
+        
+        function drawFloatingEffects() {
+            for(let i = 0; i < floatingTexts.length; i++) {
+                const t = floatingTexts[i];
+                ctx.font = "bold 24px 'Segoe UI', monospace";
+                ctx.shadowBlur = 6;
+                ctx.fillStyle = `rgba(255, 235, 100, ${t.life/50})`;
+                ctx.fillText(t.text, t.x, t.y - (45 - t.life));
+                t.life--;
+                if(t.life <= 0) {
+                    floatingTexts.splice(i,1);
+                    i--;
+                }
+            }
+            ctx.shadowBlur = 0;
+        }
+        
+        function drawGameStatus() {
+            if(!gameActive) {
+                ctx.fillStyle = "rgba(0,0,0,0.94)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.font = `bold 44px "Segoe UI", "Poppins", monospace`;
+                ctx.textAlign = "center";
+                ctx.fillStyle = "#ff4444";
+                ctx.shadowBlur = 0;
+                ctx.fillText("💥 GAME OVER 💥", canvas.width/2, canvas.height/2 - 60);
+                
+                ctx.font = `bold 26px monospace`;
+                ctx.fillStyle = "#ffcc66";
+                ctx.fillText("Clique em REINICIAR", canvas.width/2, canvas.height/2 + 20);
+                
+                ctx.font = `24px monospace`;
+                ctx.fillStyle = "#ffaa88";
+                ctx.fillText(`🏁 PONTUAÇÃO FINAL: ${Math.floor(score)} 🏁`, canvas.width/2, canvas.height/2 + 80);
+                
+                let maxSpeed = getCurrentSpeed();
+                ctx.font = `20px monospace`;
+                ctx.fillStyle = "#ffaa66";
+                ctx.fillText(`⚡ VELOCIDADE MÁXIMA: ${maxSpeed.toFixed(1)} ⚡`, canvas.width/2, canvas.height/2 + 130);
+                
+                ctx.textAlign = "left";
+            }
+        }
+        
         function render() {
-            if(!canvas || !ctx) return;
+            if(screenShake > 0) {
+                ctx.save();
+                ctx.translate((Math.random() - 0.5) * 6, (Math.random() - 0.5) * 6);
+            }
             drawTrack();
             drawObstacles();
+            drawTrail();
             drawPlayer();
-            drawBackgroundDetails();
+            drawSpeedLines();
+            drawParticles();
+            drawFloatingEffects();
             drawGameStatus();
-        }
-        
-        // ----- Loop de animação principal -----
-        function gameLoop() {
-            if(gameActive) {
-                updateGame();   // atualiza física, colisões, score e spawns
+            
+            if(debugMode && gameActive) {
+                ctx.font = "12px monospace";
+                ctx.fillStyle = "#00ff00";
+                ctx.shadowBlur = 0;
+                ctx.fillText("🔧 DEBUG MODE - Hitboxes visíveis", 10, 20);
             }
-            render();
-            frameRequest = requestAnimationFrame(gameLoop);
+            
+            if(screenShake > 0) ctx.restore();
         }
         
-        // ----- Controles via teclado e botões -----
+        function gameLoop() {
+            if(gameActive) updateGame();
+            render();
+            requestAnimationFrame(gameLoop);
+        }
+        
         function handleKeyDown(e) {
             if(!gameActive) return;
-            if(e.key === 'ArrowLeft') {
-                movePlayer(-1);
-                e.preventDefault();
-            } else if(e.key === 'ArrowRight') {
-                movePlayer(1);
-                e.preventDefault();
-            }
+            if(e.key === 'ArrowUp') { movePlayer(-1); e.preventDefault(); }
+            else if(e.key === 'ArrowDown') { movePlayer(1); e.preventDefault(); }
         }
         
-        // reiniciar jogo manualmente
         function restartGame() {
             resetGame();
-            // limpa lista de obstáculos e reinicia spawn
             obstacles = [];
+            particles = [];
+            speedLines = [];
+            trailEffect = [];
+            floatingTexts = [];
             frameCounter = 0;
             gameActive = true;
-            score = 0;
             playerLane = 2;
+            screenShake = 0;
+            nitroEffect = 0;
             updateUI();
         }
         
-        // eventos e listeners
         window.addEventListener('load', () => {
-            resetGame();  // score zero e recorde carregado
-            // Registrar eventos
+            resetGame();
             window.addEventListener('keydown', handleKeyDown);
-            document.getElementById('leftBtn').addEventListener('click', () => movePlayer(-1));
-            document.getElementById('rightBtn').addEventListener('click', () => movePlayer(1));
-            document.getElementById('restartBtn').addEventListener('click', () => {
-                restartGame();
-            });
-            // touch/mobile evitar zoom nos botões
-            const btns = document.querySelectorAll('button');
-            btns.forEach(btn => {
+            document.getElementById('upBtn').addEventListener('click', () => movePlayer(-1));
+            document.getElementById('downBtn').addEventListener('click', () => movePlayer(1));
+            document.getElementById('restartBtn').addEventListener('click', restartGame);
+            
+            document.querySelectorAll('button').forEach(btn => {
                 btn.addEventListener('touchstart', (e) => {
                     e.preventDefault();
-                    if(btn.id === 'leftBtn') movePlayer(-1);
-                    if(btn.id === 'rightBtn') movePlayer(1);
+                    if(btn.id === 'upBtn') movePlayer(-1);
+                    if(btn.id === 'downBtn') movePlayer(1);
                     if(btn.id === 'restartBtn') restartGame();
                 });
             });
-            // Ajustar canvas para resolução fixa, mas adicionar responsividade mínima
-            function resizeCanvas() {
-                // mantém tamanho definido
-                canvas.width = 700;
-                canvas.height = 400;
-                render();
-            }
-            resizeCanvas();
+            
             gameLoop();
         });
         
-        // Prevenir rolagem da página com setas
         window.addEventListener('keydown', function(e) {
-            if(e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-                if(e.target === document.body || e.target === document.documentElement) {
-                    e.preventDefault();
-                }
+            if(e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                if(e.target === document.body || e.target === document.documentElement) e.preventDefault();
             }
         });
     })();
